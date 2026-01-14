@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk-focal
+FROM eclipse-temurin:21-jdk
 
 EXPOSE 8089
 
