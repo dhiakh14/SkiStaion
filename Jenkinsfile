@@ -4,6 +4,9 @@ pipeline {
     environment {
         SONARQUBE_SERVER = 'SonarQube'  // Nom du serveur SonarQube configuré dans Jenkins
     }
+     tools {
+            maven 'M2_HOME'  // ← Must match EXACTLY the Name you set above
+        }
 
     stages {
         // 1️⃣ Stage Git : récupérer le code depuis GitHub
