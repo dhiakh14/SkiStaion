@@ -39,9 +39,5 @@ pipeline {
             }
         }
 
-
-
-
-
-
-  }
+    } // <-- fermeture du bloc stages
+} // <-- fermeture du bloc pipeline
