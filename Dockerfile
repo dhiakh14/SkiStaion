@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jdk-slim
 EXPOSE 8089
 
 # Copier le JAR généré par Maven dans l'image Docker
