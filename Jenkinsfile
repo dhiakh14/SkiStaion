@@ -6,38 +6,40 @@ pipeline {
     }
 
     stages {
-        // 1️⃣ Stage Git : Récupérer le code depuis Git
+        // 1️⃣ Stage Git : récupérer le code depuis GitHub
         stage('Git') {
             steps {
-                script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],  // Branche correcte
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/dhiakh14/SkiStaion.git'
-                        ]]
-                    ])
-                }
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/dhiakh14/SkiStaion.git'
+                    ]]
+                ])
             }
         }
 
-        // 2️⃣ Stage Maven Build : Build du projet avec Maven
+        // 2️⃣ Stage Maven Build : compiler le projet
         stage('Maven Build') {
             steps {
-                script {
-                    bat 'mvn clean install'
-                }
+                bat 'mvn clean install'
             }
         }
 
-        // 3️⃣ Stage Test : Lancer les tests Maven
+        // 3️⃣ Stage Test : lancer les tests
         stage('Test') {
             steps {
-                script {
-                    bat 'mvn test'
-                }
+                bat 'mvn test'
             }
         }
 
-    } // <-- fermeture du bloc stages
-} // <-- fermeture du bloc pipeline
+        // 4️⃣ Stage SonarQube Analysis
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    bat 'mvn sonar:sonar'
+                }
+            }
+        }
+    }
+}
